@@ -4,7 +4,7 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer className="app-footer">
-      <p>© {new Date().getFullYear()} To-Do Lista</p>
+      <p>© {new Date().getFullYear()} To-Do TeamB</p>
     </footer>
   );
 };

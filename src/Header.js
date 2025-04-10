@@ -4,7 +4,7 @@ import React from 'react';
 const Header = () => {
   return (
     <header className="app-header">
-      <h1>Helvetin hieno to-do sovellus</h1>
+      <h1>To-Do</h1>
     </header>
   );
 };

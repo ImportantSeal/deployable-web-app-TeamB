@@ -1,101 +1,198 @@
-/* src/main.css */
 
-/* Yleiset asetukset */
+/* Määritellään CSS-muuttujat yhtenäistä teemaa varten */
+:root {
+  --primary-color: #4a90e2;
+  --primary-dark: #357abd;
+  --secondary-color: #f8f9fa;
+  --text-color: #333333;
+  --muted-text: #777777;
+  --border-color: #e0e0e0;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.3s;
+  --font-family: 'Roboto', sans-serif;
+}
+
+/* Globaalit tyylit */
+* {
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-  }
-  
-  /* Sovelluksen pääkontaineri */
-  .app-container {
-    max-width: 600px;
-    margin: 2rem auto;
-    background-color: #ffffff;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-  }
-  
-  /* Header-tyylit */
-  .app-header {
-    text-align: center;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  /* TaskForm-tyylit */
-  .task-form {
-    display: flex;
-    gap: 0.5rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .task-form input {
-    flex: 1;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .task-form button {
-    padding: 0.5rem 1rem;
-    border: none;
-    background-color: #28a745;
-    color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .task-form button:hover {
-    background-color: #218838;
-  }
-  
-  /* TaskList-tyylit */
-  .task-list ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  /* TaskItem-tyylit */
-  .task-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .task-item.completed span {
-    text-decoration: line-through;
-    color: #888;
-  }
-  
-  /* Napit task-itemissä */
-  .task-buttons button {
-    margin-left: 0.5rem;
-    padding: 0.3rem 0.6rem;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .task-buttons button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Footer-tyylit */
-  .app-footer {
-    text-align: center;
-    padding: 1rem 0;
-    border-top: 1px solid #ddd;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    color: #555;
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+/* Sovelluksen kontti */
+.app-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+}
+
+/* Ylätunniste */
+.app-header {
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1.5rem;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+/* Tehtävän lisäyslomake */
+.task-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.task-form input[type="text"] {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border var(--transition-speed);
+}
+
+.task-form input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.task-form select {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border var(--transition-speed);
+}
+
+.task-form select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.task-form button {
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+}
+
+.task-form button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* Tehtävien haku */
+.task-search {
+  margin-bottom: 1rem;
+}
+
+.task-search input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border var(--transition-speed);
+}
+
+.task-search input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Suodatuskontti */
+.filter-container {
+  margin-bottom: 1.5rem;
+  text-align: right;
+}
+
+.filter-container label {
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
+.filter-container select {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* Tehtävälista */
+.task-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  transition: background-color var(--transition-speed);
+}
+
+.task-item:hover {
+  background-color: #eceff1;
+}
+
+.task-item.completed span {
+  text-decoration: line-through;
+  color: var(--muted-text);
+}
+
+.task-item span {
+  font-size: 1rem;
+}
+
+/* Tehtävän painikkeet */
+.task-buttons button {
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+}
+
+.task-buttons button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+/* Alatunniste */
+.app-footer {
+  text-align: center;
+  padding-top: 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  color: var(--muted-text);
+}
