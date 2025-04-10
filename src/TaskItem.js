@@ -14,17 +14,30 @@ const TaskItem = ({ task, markTaskDone, deleteTask, editTask }) => {
 
   return (
     <li className={`task-item ${task.isCompleted ? 'completed' : ''}`}>
-      {isEditing ? (
-         <input 
-           type="text" 
-           value={editValue} 
-           onChange={(e) => setEditValue(e.target.value)} 
-         />
-      ) : (
-         <span>
-           {task.title} <small>(Prioriteetti: {task.priority === 1 ? 'Korkea' : task.priority === 2 ? 'Keskitaso' : 'Matala'})</small>
-         </span>
-      )}
+    <div className="task-content">
+      <div className="task-info">
+        {isEditing ? (
+          <input
+            type="text"
+            value={editValue}
+            onChange={(e) => setEditValue(e.target.value)}
+          />
+        ) : (
+          <>
+            <small className='task-date'>Luotu: {new Date(task.id).toLocaleDateString('fi-FI')} {new Date(task.id).toLocaleTimeString('fi-FI')}</small>
+            <div className="task-title">{task.title}</div>
+            <div className="task-priority">
+              <small>
+                Prioriteetti: {task.priority === 1 ? 'Korkea' : task.priority === 2 ? 'Keskitaso' : 'Matala'}
+              </small>
+            </div>
+            <div className="task-deadline">
+              <small>Deadline: {task.deadline}</small>
+            </div>
+          </>
+        )}
+      </div>
+
       <div className="task-buttons">
         <button
           type="button"
@@ -40,7 +53,8 @@ const TaskItem = ({ task, markTaskDone, deleteTask, editTask }) => {
           Poista
         </button>
       </div>
-    </li>
+    </div>
+  </li>
   );
 };
 
