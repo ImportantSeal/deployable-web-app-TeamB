@@ -21,7 +21,7 @@ const App = () => {
   }, [tasks]);
 
   // Lisätään uusi tehtävä, jossa mukana prioriteetti (1 = korkea, 2 = keskitaso, 3 = matala)
-  const addTask = (taskTitle, priority) => {
+  const addTask = (taskTitle, priority, taskDeadline) => {
     if (taskTitle.trim() === '') return;
 
     const newTask = {
@@ -29,6 +29,7 @@ const App = () => {
       title: taskTitle,
       isCompleted: false,
       priority: priority,
+      deadline: taskDeadline,
     };
 
     // Lisätään uusi tehtävä listan alkuun
@@ -50,10 +51,10 @@ const App = () => {
   };
 
   // Tehtävän muokkaus
-  const editTask = (taskId, newTitle) => {
+  const editTask = (taskId, updatedFields) => {
     setTasks(prevTasks =>
       prevTasks.map(task =>
-        task.id === taskId ? { ...task, title: newTitle } : task
+        task.id === taskId ? { ...task, ...updatedFields } : task
       )
     );
   };
@@ -68,6 +69,29 @@ const App = () => {
     task.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Dealine sorttauksen avuksi lisätään tarvittaessa 0 päivämäärään, kuukauteen ja aikaan
+  const padDeadlineString = (str) => {
+    try {
+      if (!str || typeof str !== "string") return "99.99 99.99";
+
+      const [datePart, timePart = "0.0"] = str.trim().split(" ");
+      const [day, month] = datePart.split(".");
+      const [hour = "0", minute = "0"] = timePart.split(".");
+
+      if (!day || !month) return "99.99 99.99";
+
+      const paddedDay = day.padStart(2, "0");
+      const paddedMonth = month.padStart(2, "0");
+      const paddedHour = hour.padStart(2, "0");
+      const paddedMinute = minute.padStart(2, "0");
+
+      return `${paddedMonth}.${paddedDay} ${paddedHour}.${paddedMinute}`;
+    } catch {
+      return "00.00 00.00";
+    }
+  };
+
+
   // Tehtävien sorttaus filterin perusteella
   const sortedTasks = filteredTasks.sort((a, b) => {
     if (filterBy === "title") {
@@ -77,7 +101,9 @@ const App = () => {
     } else if (filterBy === "priority") {
       // Näytetään ensin korkean prioriteetin tehtävät (1 ennen 2 ennen 3)
       return a.priority - b.priority;
-    } else {
+    } else if (filterBy === "deadline") {
+      return padDeadlineString(a.deadline).localeCompare(padDeadlineString(b.deadline))
+    }  else {
       return b.id - a.id;
     }
   });
@@ -87,15 +113,18 @@ const App = () => {
       <Header />
       <TaskSearch setSearchTerm={setSearchTerm} />
       <TaskForm addTask={addTask} />
+      <TaskSearch setSearchTerm={setSearchTerm} />
 
       {/* Filter */}
       <div className="filter-container">
+
         <label htmlFor="filter">Suodatus: </label>
         <select id="filter" value={filterBy} onChange={handleFilterChange}>
           <option value="date">Päivämäärä</option>
           <option value="title">Nimi</option>
           <option value="status">Tila</option>
           <option value="priority">Prioriteetti</option>
+          <option value="deadline">Deadline</option>
         </select>
       </div>
 
