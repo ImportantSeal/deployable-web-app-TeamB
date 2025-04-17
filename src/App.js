@@ -51,10 +51,10 @@ const App = () => {
   };
 
   // Tehtävän muokkaus
-  const editTask = (taskId, newTitle) => {
+  const editTask = (taskId, updatedFields) => {
     setTasks(prevTasks =>
       prevTasks.map(task =>
-        task.id === taskId ? { ...task, title: newTitle } : task
+        task.id === taskId ? { ...task, ...updatedFields } : task
       )
     );
   };
@@ -111,6 +111,9 @@ const App = () => {
     <div className="app-container">
       <Header />
       <TaskForm addTask={addTask} />
+      <TaskSearch setSearchTerm={setSearchTerm} />
+
+      {/* Haku ja suodatus: nämä liittyvät toisiinsa joten ne on hyvä sijoittaa yhteen */}
       <TaskSearch setSearchTerm={setSearchTerm} />
 
       {/* Filter */}
