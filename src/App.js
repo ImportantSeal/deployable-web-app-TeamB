@@ -91,7 +91,6 @@ const App = () => {
     }
   };
 
-
   // Tehtävien sorttaus filterin perusteella
   const sortedTasks = filteredTasks.sort((a, b) => {
     if (filterBy === "title") {
@@ -111,13 +110,14 @@ const App = () => {
   return (
     <div className="app-container">
       <Header />
-      <TaskSearch setSearchTerm={setSearchTerm} />
+
       <TaskForm addTask={addTask} />
+
+      {/* Haku ja suodatus: nämä liittyvät toisiinsa joten ne on hyvä sijoittaa yhteen */}
       <TaskSearch setSearchTerm={setSearchTerm} />
 
       {/* Filter */}
       <div className="filter-container">
-
         <label htmlFor="filter">Suodatus: </label>
         <select id="filter" value={filterBy} onChange={handleFilterChange}>
           <option value="date">Päivämäärä</option>
