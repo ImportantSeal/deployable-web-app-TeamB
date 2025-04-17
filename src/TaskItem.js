@@ -82,7 +82,6 @@ const TaskItem = ({ task, markTaskDone, deleteTask, editTask }) => {
           </button>
         </div>
       </div>
-    </div>
   </li>
   );
 };
