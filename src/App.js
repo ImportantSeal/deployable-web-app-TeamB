@@ -113,8 +113,6 @@ const App = () => {
       <TaskForm addTask={addTask} />
       <TaskSearch setSearchTerm={setSearchTerm} />
 
-      {/* Haku ja suodatus: nämä liittyvät toisiinsa joten ne on hyvä sijoittaa yhteen */}
-      <TaskSearch setSearchTerm={setSearchTerm} />
 
       {/* Filter */}
       <div className="filter-container">
